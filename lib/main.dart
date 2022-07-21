@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   Locale _locale;
   ThemeMode _themeMode = ThemeMode.system;
 
-  Stream<SchedulerFirebaseUser> userStream;
+  Stream<TickTickFirebaseUser> userStream;
 
   AppStateNotifier _appStateNotifier;
   GoRouter _router;
@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
     _appStateNotifier = AppStateNotifier();
     _router = createRouter(_appStateNotifier);
-    userStream = schedulerFirebaseUserStream()
+    userStream = tickTickFirebaseUserStream()
       ..listen((user) => _appStateNotifier.update(user));
     Future.delayed(
       Duration(seconds: 1),
@@ -69,7 +69,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Scheduler',
+      title: 'Tick Tick',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,

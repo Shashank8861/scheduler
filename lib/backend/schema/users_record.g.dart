@@ -26,20 +26,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.displayName;
-    if (value != null) {
-      result
-        ..add('display_name')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
-    value = object.photoUrl;
-    if (value != null) {
-      result
-        ..add('photo_url')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.uid;
     if (value != null) {
       result
@@ -53,6 +39,20 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add('created_time')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
+    }
+    value = object.displayName;
+    if (value != null) {
+      result
+        ..add('display_name')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.photoUrl;
+    if (value != null) {
+      result
+        ..add('photo_url')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.phoneNumber;
     if (value != null) {
@@ -87,14 +87,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.email = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'display_name':
-          result.displayName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
-        case 'photo_url':
-          result.photoUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'uid':
           result.uid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -102,6 +94,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         case 'created_time':
           result.createdTime = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+        case 'display_name':
+          result.displayName = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'photo_url':
+          result.photoUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'phone_number':
           result.phoneNumber = serializers.deserialize(value,
@@ -124,13 +124,13 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String email;
   @override
-  final String displayName;
-  @override
-  final String photoUrl;
-  @override
   final String uid;
   @override
   final DateTime createdTime;
+  @override
+  final String displayName;
+  @override
+  final String photoUrl;
   @override
   final String phoneNumber;
   @override
@@ -141,10 +141,10 @@ class _$UsersRecord extends UsersRecord {
 
   _$UsersRecord._(
       {this.email,
-      this.displayName,
-      this.photoUrl,
       this.uid,
       this.createdTime,
+      this.displayName,
+      this.photoUrl,
       this.phoneNumber,
       this.reference})
       : super._();
@@ -161,10 +161,10 @@ class _$UsersRecord extends UsersRecord {
     if (identical(other, this)) return true;
     return other is UsersRecord &&
         email == other.email &&
-        displayName == other.displayName &&
-        photoUrl == other.photoUrl &&
         uid == other.uid &&
         createdTime == other.createdTime &&
+        displayName == other.displayName &&
+        photoUrl == other.photoUrl &&
         phoneNumber == other.phoneNumber &&
         reference == other.reference;
   }
@@ -175,10 +175,10 @@ class _$UsersRecord extends UsersRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, email.hashCode), displayName.hashCode),
-                        photoUrl.hashCode),
-                    uid.hashCode),
-                createdTime.hashCode),
+                    $jc($jc($jc(0, email.hashCode), uid.hashCode),
+                        createdTime.hashCode),
+                    displayName.hashCode),
+                photoUrl.hashCode),
             phoneNumber.hashCode),
         reference.hashCode));
   }
@@ -187,10 +187,10 @@ class _$UsersRecord extends UsersRecord {
   String toString() {
     return (newBuiltValueToStringHelper('UsersRecord')
           ..add('email', email)
-          ..add('displayName', displayName)
-          ..add('photoUrl', photoUrl)
           ..add('uid', uid)
           ..add('createdTime', createdTime)
+          ..add('displayName', displayName)
+          ..add('photoUrl', photoUrl)
           ..add('phoneNumber', phoneNumber)
           ..add('reference', reference))
         .toString();
@@ -204,14 +204,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String get email => _$this._email;
   set email(String email) => _$this._email = email;
 
-  String _displayName;
-  String get displayName => _$this._displayName;
-  set displayName(String displayName) => _$this._displayName = displayName;
-
-  String _photoUrl;
-  String get photoUrl => _$this._photoUrl;
-  set photoUrl(String photoUrl) => _$this._photoUrl = photoUrl;
-
   String _uid;
   String get uid => _$this._uid;
   set uid(String uid) => _$this._uid = uid;
@@ -219,6 +211,14 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   DateTime _createdTime;
   DateTime get createdTime => _$this._createdTime;
   set createdTime(DateTime createdTime) => _$this._createdTime = createdTime;
+
+  String _displayName;
+  String get displayName => _$this._displayName;
+  set displayName(String displayName) => _$this._displayName = displayName;
+
+  String _photoUrl;
+  String get photoUrl => _$this._photoUrl;
+  set photoUrl(String photoUrl) => _$this._photoUrl = photoUrl;
 
   String _phoneNumber;
   String get phoneNumber => _$this._phoneNumber;
@@ -237,10 +237,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
     final $v = _$v;
     if ($v != null) {
       _email = $v.email;
-      _displayName = $v.displayName;
-      _photoUrl = $v.photoUrl;
       _uid = $v.uid;
       _createdTime = $v.createdTime;
+      _displayName = $v.displayName;
+      _photoUrl = $v.photoUrl;
       _phoneNumber = $v.phoneNumber;
       _reference = $v.reference;
       _$v = null;
@@ -264,10 +264,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
     final _$result = _$v ??
         new _$UsersRecord._(
             email: email,
-            displayName: displayName,
-            photoUrl: photoUrl,
             uid: uid,
             createdTime: createdTime,
+            displayName: displayName,
+            photoUrl: photoUrl,
             phoneNumber: phoneNumber,
             reference: reference);
     replace(_$result);

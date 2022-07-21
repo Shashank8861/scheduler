@@ -13,19 +13,19 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get email;
 
   @nullable
+  String get uid;
+
+  @nullable
+  @BuiltValueField(wireName: 'created_time')
+  DateTime get createdTime;
+
+  @nullable
   @BuiltValueField(wireName: 'display_name')
   String get displayName;
 
   @nullable
   @BuiltValueField(wireName: 'photo_url')
   String get photoUrl;
-
-  @nullable
-  String get uid;
-
-  @nullable
-  @BuiltValueField(wireName: 'created_time')
-  DateTime get createdTime;
 
   @nullable
   @BuiltValueField(wireName: 'phone_number')
@@ -37,9 +37,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..email = ''
+    ..uid = ''
     ..displayName = ''
     ..photoUrl = ''
-    ..uid = ''
     ..phoneNumber = '';
 
   static CollectionReference get collection =>
@@ -65,18 +65,18 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 
 Map<String, dynamic> createUsersRecordData({
   String email,
-  String displayName,
-  String photoUrl,
   String uid,
   DateTime createdTime,
+  String displayName,
+  String photoUrl,
   String phoneNumber,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
         UsersRecord((u) => u
           ..email = email
-          ..displayName = displayName
-          ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime
+          ..displayName = displayName
+          ..photoUrl = photoUrl
           ..phoneNumber = phoneNumber));

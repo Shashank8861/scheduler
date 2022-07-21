@@ -87,6 +87,8 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         dayname: getParameter(data, 'dayname'),
         dociD: getParameter(data, 'dociD'),
       ),
+  'signin': (data) async => SigninWidget(),
+  'signup': (data) async => SignupWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

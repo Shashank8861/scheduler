@@ -22,6 +22,8 @@ abstract class FlutterFlowTheme {
   Color customColor3;
   Color customColor4;
   Color customColor5;
+  Color primaryBtnText;
+  Color lineColor;
 
   String get title1Family => typography.title1Family;
   TextStyle get title1 => typography.title1;
@@ -45,17 +47,19 @@ class LightModeTheme extends FlutterFlowTheme {
   Color primaryColor = const Color(0xFF4B39EF);
   Color secondaryColor = const Color(0xFF39D2C0);
   Color tertiaryColor = const Color(0xFF262D34);
-  Color alternate = const Color(0x00000000);
-  Color primaryBackground = const Color(0x00000000);
-  Color secondaryBackground = const Color(0x00000000);
-  Color primaryText = const Color(0x00000000);
-  Color secondaryText = const Color(0x00000000);
+  Color alternate = const Color(0xFFB8E6E0);
+  Color primaryBackground = const Color(0xFFF1F4F8);
+  Color secondaryBackground = const Color(0xFFFFFFFF);
+  Color primaryText = const Color(0xFF0F1113);
+  Color secondaryText = const Color(0xFF57636C);
 
   Color customColor1 = Color(0xFF57636C);
   Color customColor2 = Color(0xFFDBE2E7);
   Color customColor3 = Color(0xFFDF3F3F);
   Color customColor4 = Color(0xFF090F13);
   Color customColor5 = Color(0xFFEEEEEE);
+  Color primaryBtnText = Color(0xFFFFFFFF);
+  Color lineColor = Color(0xFFE0E3E7);
 }
 
 abstract class Typography {

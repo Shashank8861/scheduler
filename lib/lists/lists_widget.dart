@@ -25,6 +25,11 @@ class _ListsWidgetState extends State<ListsWidget> {
         },
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         elevation: 8,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 35,
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -53,7 +58,7 @@ class _ListsWidgetState extends State<ListsWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'All Activity from this past month.',
+                    'All Activities are listed here',
                     style: FlutterFlowTheme.of(context).bodyText2.override(
                           fontFamily: 'Lexend Deca',
                           color: Color(0xFF95A1AC),
