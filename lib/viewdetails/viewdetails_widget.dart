@@ -100,301 +100,310 @@ class _ViewdetailsWidgetState extends State<ViewdetailsWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                          );
-                          if (selectedMedia != null &&
-                              selectedMedia.every((m) =>
-                                  validateFileFormat(m.storagePath, context))) {
-                            showUploadMessage(
-                              context,
-                              'Uploading file...',
-                              showLoading: true,
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                        child: InkWell(
+                          onTap: () async {
+                            final selectedMedia =
+                                await selectMediaWithSourceBottomSheet(
+                              context: context,
+                              allowPhoto: true,
                             );
-                            final downloadUrls = (await Future.wait(
-                                    selectedMedia.map((m) async =>
-                                        await uploadData(
-                                            m.storagePath, m.bytes))))
-                                .where((u) => u != null)
-                                .toList();
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (downloadUrls != null &&
-                                downloadUrls.length == selectedMedia.length) {
-                              setState(
-                                  () => uploadedFileUrl = downloadUrls.first);
+                            if (selectedMedia != null &&
+                                selectedMedia.every((m) => validateFileFormat(
+                                    m.storagePath, context))) {
                               showUploadMessage(
                                 context,
-                                'Success!',
+                                'Uploading file...',
+                                showLoading: true,
                               );
-                            } else {
-                              showUploadMessage(
-                                context,
-                                'Failed to upload media',
-                              );
-                              return;
+                              final downloadUrls = (await Future.wait(
+                                      selectedMedia.map((m) async =>
+                                          await uploadData(
+                                              m.storagePath, m.bytes))))
+                                  .where((u) => u != null)
+                                  .toList();
+                              ScaffoldMessenger.of(context)
+                                  .hideCurrentSnackBar();
+                              if (downloadUrls != null &&
+                                  downloadUrls.length == selectedMedia.length) {
+                                setState(
+                                    () => uploadedFileUrl = downloadUrls.first);
+                                showUploadMessage(
+                                  context,
+                                  'Success!',
+                                );
+                              } else {
+                                showUploadMessage(
+                                  context,
+                                  'Failed to upload media',
+                                );
+                                return;
+                              }
                             }
-                          }
-                        },
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF1F4F8),
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: Image.asset(
-                                'assets/images/emptyState@2x.png',
-                              ).image,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 6,
-                                color: Color(0x3A000000),
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(120),
-                              child: Image.network(
-                                valueOrDefault<String>(
-                                  '',
-                                  'https://play-lh.googleusercontent.com/yHwcDgHhJuGYCcmvmkrgShPwXIjIYHs2HzKWpfuyTe3CJE-f93V1E8V0pEytxv60Fc0',
-                                ),
-                                width: 100,
-                                height: 100,
+                          },
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF1F4F8),
+                              image: DecorationImage(
                                 fit: BoxFit.cover,
+                                image: Image.asset(
+                                  'assets/images/emptyState@2x.png',
+                                ).image,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 6,
+                                  color: Color(0x3A000000),
+                                  offset: Offset(0, 2),
+                                )
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(120),
+                                child: Image.network(
+                                  valueOrDefault<String>(
+                                    '',
+                                    'https://play-lh.googleusercontent.com/yHwcDgHhJuGYCcmvmkrgShPwXIjIYHs2HzKWpfuyTe3CJE-f93V1E8V0pEytxv60Fc0',
+                                  ),
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: userNameController,
-                        readOnly: FFAppState().editable,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyText2.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: TextFormField(
+                          controller: userNameController,
+                          readOnly: FFAppState().editable,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Outfit',
-                              color: Color(0xFF14181B),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: emailAddressController,
-                        readOnly: true,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Day',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyText2.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: TextFormField(
+                          controller: emailAddressController,
+                          readOnly: true,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Day',
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Outfit',
-                              color: Color(0xFF14181B),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: titleRoleController,
-                        readOnly: FFAppState().editable,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Start Time',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyText2.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: TextFormField(
+                          controller: titleRoleController,
+                          readOnly: FFAppState().editable,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Start Time',
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Outfit',
-                              color: Color(0xFF14181B),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: eNDtIMEController,
-                        readOnly: FFAppState().editable,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'End Time',
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyText2.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: TextFormField(
+                          controller: eNDtIMEController,
+                          readOnly: FFAppState().editable,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'End Time',
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          textAlign: TextAlign.start,
+                          maxLines: 1,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Outfit',
-                              color: Color(0xFF14181B),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
-                      child: TextFormField(
-                        controller: shortBioController,
-                        readOnly: FFAppState().editable,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Description',
-                          hintText: widget.desc,
-                          hintStyle:
-                              FlutterFlowTheme.of(context).bodyText2.override(
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(16, 16, 16, 0),
+                        child: TextFormField(
+                          controller: shortBioController,
+                          readOnly: FFAppState().editable,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Description',
+                            hintText: widget.desc,
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText2.override(
+                                      fontFamily: 'Outfit',
+                                      color: Color(0xFF57636C),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.normal,
+                                    ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFF1F4F8),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Outfit',
-                                    color: Color(0xFF57636C),
+                                    color: Color(0xFF14181B),
                                     fontSize: 14,
                                     fontWeight: FontWeight.normal,
                                   ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFFF1F4F8),
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 32, 20, 12),
+                          textAlign: TextAlign.start,
+                          maxLines: 4,
+                          keyboardType: TextInputType.multiline,
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1.override(
-                              fontFamily: 'Outfit',
-                              color: Color(0xFF14181B),
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal,
-                            ),
-                        textAlign: TextAlign.start,
-                        maxLines: 4,
-                        keyboardType: TextInputType.multiline,
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

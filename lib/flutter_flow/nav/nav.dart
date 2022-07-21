@@ -19,8 +19,8 @@ export 'serialization_util.dart';
 const kTransitionInfoKey = '__transition_info__';
 
 class AppStateNotifier extends ChangeNotifier {
-  SchedulerFirebaseUser initialUser;
-  SchedulerFirebaseUser user;
+  TickTickFirebaseUser initialUser;
+  TickTickFirebaseUser user;
   bool showSplashImage = true;
   String _redirectLocation;
 
@@ -45,7 +45,7 @@ class AppStateNotifier extends ChangeNotifier {
   /// to perform subsequent actions (such as navigation) afterwards.
   void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
 
-  void update(SchedulerFirebaseUser newUser) {
+  void update(TickTickFirebaseUser newUser) {
     initialUser ??= newUser;
     user = newUser;
     // Refresh the app on auth change unless explicitly marked otherwise.
@@ -68,13 +68,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, _) =>
-          appStateNotifier.loggedIn ? ListsWidget() : StartPageWidget(),
+          appStateNotifier.loggedIn ? ListsWidget() : SigninWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? ListsWidget() : StartPageWidget(),
+              appStateNotifier.loggedIn ? ListsWidget() : SigninWidget(),
           routes: [
             FFRoute(
               name: 'StartPage',
@@ -103,6 +103,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                 dociD: params.getParam(
                     'dociD', ParamType.DocumentReference, 'alarms'),
               ),
+            ),
+            FFRoute(
+              name: 'signin',
+              path: 'signin',
+              builder: (context, params) => SigninWidget(),
+            ),
+            FFRoute(
+              name: 'signup',
+              path: 'signup',
+              builder: (context, params) => SignupWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),
@@ -252,7 +262,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/startPage';
+            return '/signin';
           }
           return null;
         },
