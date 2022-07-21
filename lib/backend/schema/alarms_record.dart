@@ -26,6 +26,10 @@ abstract class AlarmsRecord
   String get description;
 
   @nullable
+  @BuiltValueField(wireName: 'user_ref')
+  String get userRef;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -34,7 +38,8 @@ abstract class AlarmsRecord
     ..start = ''
     ..end = ''
     ..day = ''
-    ..description = '';
+    ..description = ''
+    ..userRef = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('alarms');
@@ -63,6 +68,7 @@ Map<String, dynamic> createAlarmsRecordData({
   String end,
   String day,
   String description,
+  String userRef,
 }) =>
     serializers.toFirestore(
         AlarmsRecord.serializer,
@@ -71,4 +77,5 @@ Map<String, dynamic> createAlarmsRecordData({
           ..start = start
           ..end = end
           ..day = day
-          ..description = description));
+          ..description = description
+          ..userRef = userRef));

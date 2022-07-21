@@ -307,6 +307,7 @@ class _CreatenewWidgetState extends State<CreatenewWidget> {
                         end: dateTimeFormat('jm', datePicked2),
                         day: teamSelectValue,
                         description: shortBioController.text,
+                        userRef: currentUserUid,
                       );
                       await AlarmsRecord.collection.doc().set(alarmsCreateData);
                       context.pop();
