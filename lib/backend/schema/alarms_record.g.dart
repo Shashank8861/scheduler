@@ -55,6 +55,13 @@ class _$AlarmsRecordSerializer implements StructuredSerializer<AlarmsRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.userRef;
+    if (value != null) {
+      result
+        ..add('user_ref')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -97,6 +104,10 @@ class _$AlarmsRecordSerializer implements StructuredSerializer<AlarmsRecord> {
           result.description = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'user_ref':
+          result.userRef = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -122,6 +133,8 @@ class _$AlarmsRecord extends AlarmsRecord {
   @override
   final String description;
   @override
+  final String userRef;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$AlarmsRecord([void Function(AlarmsRecordBuilder) updates]) =>
@@ -133,6 +146,7 @@ class _$AlarmsRecord extends AlarmsRecord {
       this.end,
       this.day,
       this.description,
+      this.userRef,
       this.reference})
       : super._();
 
@@ -152,6 +166,7 @@ class _$AlarmsRecord extends AlarmsRecord {
         end == other.end &&
         day == other.day &&
         description == other.description &&
+        userRef == other.userRef &&
         reference == other.reference;
   }
 
@@ -159,9 +174,13 @@ class _$AlarmsRecord extends AlarmsRecord {
   int get hashCode {
     return $jf($jc(
         $jc(
-            $jc($jc($jc($jc(0, name.hashCode), start.hashCode), end.hashCode),
-                day.hashCode),
-            description.hashCode),
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, name.hashCode), start.hashCode),
+                        end.hashCode),
+                    day.hashCode),
+                description.hashCode),
+            userRef.hashCode),
         reference.hashCode));
   }
 
@@ -173,6 +192,7 @@ class _$AlarmsRecord extends AlarmsRecord {
           ..add('end', end)
           ..add('day', day)
           ..add('description', description)
+          ..add('userRef', userRef)
           ..add('reference', reference))
         .toString();
   }
@@ -202,6 +222,10 @@ class AlarmsRecordBuilder
   String get description => _$this._description;
   set description(String description) => _$this._description = description;
 
+  String _userRef;
+  String get userRef => _$this._userRef;
+  set userRef(String userRef) => _$this._userRef = userRef;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -219,6 +243,7 @@ class AlarmsRecordBuilder
       _end = $v.end;
       _day = $v.day;
       _description = $v.description;
+      _userRef = $v.userRef;
       _reference = $v.reference;
       _$v = null;
     }
@@ -245,6 +270,7 @@ class AlarmsRecordBuilder
             end: end,
             day: day,
             description: description,
+            userRef: userRef,
             reference: reference);
     replace(_$result);
     return _$result;

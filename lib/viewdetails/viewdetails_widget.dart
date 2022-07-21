@@ -447,6 +447,7 @@ class _ViewdetailsWidgetState extends State<ViewdetailsWidget> {
                             end: eNDtIMEController.text,
                             day: emailAddressController.text,
                             description: shortBioController.text,
+                            userRef: currentUserUid,
                           );
                           await widget.dociD.update(alarmsUpdateData);
                         },
