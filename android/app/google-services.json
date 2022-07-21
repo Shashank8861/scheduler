@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "433464222073",
+    "project_id": "schedular-7c9da",
+    "storage_bucket": "schedular-7c9da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433464222073:android:45f8a8a8390ba8f5f1cfa8",
+        "android_client_info": {
+          "package_name": "com.college.schedulerspp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433464222073-51l34539d9e0us4n3pum88lvtg3e1g18.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.college.schedulerspp",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "433464222073-orkc7m7u3uf40ckf1qf0ctcka439aqlf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHaVMA4zLRMiQhXlJcH771PNnGuKz_BWo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433464222073-orkc7m7u3uf40ckf1qf0ctcka439aqlf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "433464222073-d1lqe79h7q4ok0qdnisileibhjbhjn2j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.college.schedulerspp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
