@@ -26,13 +26,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.uid;
-    if (value != null) {
-      result
-        ..add('uid')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.createdTime;
     if (value != null) {
       result
@@ -58,6 +51,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
     if (value != null) {
       result
         ..add('phone_number')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.uid;
+    if (value != null) {
+      result
+        ..add('uid')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -87,10 +87,6 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.email = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'uid':
-          result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'created_time':
           result.createdTime = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
@@ -105,6 +101,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           break;
         case 'phone_number':
           result.phoneNumber = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'uid':
+          result.uid = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
@@ -124,8 +124,6 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String email;
   @override
-  final String uid;
-  @override
   final DateTime createdTime;
   @override
   final String displayName;
@@ -134,6 +132,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String phoneNumber;
   @override
+  final String uid;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder) updates]) =>
@@ -141,11 +141,11 @@ class _$UsersRecord extends UsersRecord {
 
   _$UsersRecord._(
       {this.email,
-      this.uid,
       this.createdTime,
       this.displayName,
       this.photoUrl,
       this.phoneNumber,
+      this.uid,
       this.reference})
       : super._();
 
@@ -161,11 +161,11 @@ class _$UsersRecord extends UsersRecord {
     if (identical(other, this)) return true;
     return other is UsersRecord &&
         email == other.email &&
-        uid == other.uid &&
         createdTime == other.createdTime &&
         displayName == other.displayName &&
         photoUrl == other.photoUrl &&
         phoneNumber == other.phoneNumber &&
+        uid == other.uid &&
         reference == other.reference;
   }
 
@@ -175,11 +175,11 @@ class _$UsersRecord extends UsersRecord {
         $jc(
             $jc(
                 $jc(
-                    $jc($jc($jc(0, email.hashCode), uid.hashCode),
-                        createdTime.hashCode),
-                    displayName.hashCode),
-                photoUrl.hashCode),
-            phoneNumber.hashCode),
+                    $jc($jc($jc(0, email.hashCode), createdTime.hashCode),
+                        displayName.hashCode),
+                    photoUrl.hashCode),
+                phoneNumber.hashCode),
+            uid.hashCode),
         reference.hashCode));
   }
 
@@ -187,11 +187,11 @@ class _$UsersRecord extends UsersRecord {
   String toString() {
     return (newBuiltValueToStringHelper('UsersRecord')
           ..add('email', email)
-          ..add('uid', uid)
           ..add('createdTime', createdTime)
           ..add('displayName', displayName)
           ..add('photoUrl', photoUrl)
           ..add('phoneNumber', phoneNumber)
+          ..add('uid', uid)
           ..add('reference', reference))
         .toString();
   }
@@ -203,10 +203,6 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String _email;
   String get email => _$this._email;
   set email(String email) => _$this._email = email;
-
-  String _uid;
-  String get uid => _$this._uid;
-  set uid(String uid) => _$this._uid = uid;
 
   DateTime _createdTime;
   DateTime get createdTime => _$this._createdTime;
@@ -224,6 +220,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String get phoneNumber => _$this._phoneNumber;
   set phoneNumber(String phoneNumber) => _$this._phoneNumber = phoneNumber;
 
+  String _uid;
+  String get uid => _$this._uid;
+  set uid(String uid) => _$this._uid = uid;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -237,11 +237,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
     final $v = _$v;
     if ($v != null) {
       _email = $v.email;
-      _uid = $v.uid;
       _createdTime = $v.createdTime;
       _displayName = $v.displayName;
       _photoUrl = $v.photoUrl;
       _phoneNumber = $v.phoneNumber;
+      _uid = $v.uid;
       _reference = $v.reference;
       _$v = null;
     }
@@ -264,11 +264,11 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
     final _$result = _$v ??
         new _$UsersRecord._(
             email: email,
-            uid: uid,
             createdTime: createdTime,
             displayName: displayName,
             photoUrl: photoUrl,
             phoneNumber: phoneNumber,
+            uid: uid,
             reference: reference);
     replace(_$result);
     return _$result;

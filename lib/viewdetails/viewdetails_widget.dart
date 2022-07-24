@@ -1,11 +1,9 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,11 +31,10 @@ class ViewdetailsWidget extends StatefulWidget {
 }
 
 class _ViewdetailsWidgetState extends State<ViewdetailsWidget> {
-  String uploadedFileUrl = '';
-  TextEditingController userNameController;
-  TextEditingController emailAddressController;
-  TextEditingController titleRoleController;
   TextEditingController eNDtIMEController;
+  TextEditingController emailAddressController;
+  TextEditingController userNameController;
+  TextEditingController titleRoleController;
   TextEditingController shortBioController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -106,80 +103,38 @@ class _ViewdetailsWidgetState extends State<ViewdetailsWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                            );
-                            if (selectedMedia != null &&
-                                selectedMedia.every((m) => validateFileFormat(
-                                    m.storagePath, context))) {
-                              showUploadMessage(
-                                context,
-                                'Uploading file...',
-                                showLoading: true,
-                              );
-                              final downloadUrls = (await Future.wait(
-                                      selectedMedia.map((m) async =>
-                                          await uploadData(
-                                              m.storagePath, m.bytes))))
-                                  .where((u) => u != null)
-                                  .toList();
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              if (downloadUrls != null &&
-                                  downloadUrls.length == selectedMedia.length) {
-                                setState(
-                                    () => uploadedFileUrl = downloadUrls.first);
-                                showUploadMessage(
-                                  context,
-                                  'Success!',
-                                );
-                              } else {
-                                showUploadMessage(
-                                  context,
-                                  'Failed to upload media',
-                                );
-                                return;
-                              }
-                            }
-                          },
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF1F4F8),
-                              image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: Image.asset(
-                                  'assets/images/emptyState@2x.png',
-                                ).image,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 6,
-                                  color: Color(0x3A000000),
-                                  offset: Offset(0, 2),
-                                )
-                              ],
-                              shape: BoxShape.circle,
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFF1F4F8),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: Image.asset(
+                                'assets/images/emptyState@2x.png',
+                              ).image,
                             ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(120),
-                                child: Image.network(
-                                  valueOrDefault<String>(
-                                    '',
-                                    'https://play-lh.googleusercontent.com/yHwcDgHhJuGYCcmvmkrgShPwXIjIYHs2HzKWpfuyTe3CJE-f93V1E8V0pEytxv60Fc0',
-                                  ),
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.cover,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 6,
+                                color: Color(0x3A000000),
+                                offset: Offset(0, 2),
+                              )
+                            ],
+                            shape: BoxShape.circle,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(120),
+                              child: Image.network(
+                                valueOrDefault<String>(
+                                  '',
+                                  'https://play-lh.googleusercontent.com/yHwcDgHhJuGYCcmvmkrgShPwXIjIYHs2HzKWpfuyTe3CJE-f93V1E8V0pEytxv60Fc0',
                                 ),
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),
