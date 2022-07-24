@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -71,7 +72,9 @@ class _ListsWidgetState extends State<ListsWidget> {
             ),
             StreamBuilder<List<AlarmsRecord>>(
               stream: queryAlarmsRecord(
-                queryBuilder: (alarmsRecord) => alarmsRecord.orderBy('start'),
+                queryBuilder: (alarmsRecord) => alarmsRecord
+                    .where('user_ref', isEqualTo: currentUserUid)
+                    .orderBy('start'),
               ),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.

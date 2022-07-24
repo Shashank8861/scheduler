@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -324,14 +323,11 @@ class _SignupWidgetState extends State<SignupWidget> {
 
                         final usersCreateData = createUsersRecordData(
                           email: emailTextController.text,
-                          uid: random_data.randomString(
-                            10,
-                            15,
-                            true,
-                            true,
-                            true,
-                          ),
                           createdTime: getCurrentTimestamp,
+                          displayName: 'user',
+                          photoUrl: '',
+                          phoneNumber: '9999999999',
+                          uid: emailTextController.text,
                         );
                         await UsersRecord.collection
                             .doc(user.uid)
